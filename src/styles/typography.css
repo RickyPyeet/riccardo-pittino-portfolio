@@ -1,0 +1,26 @@
+@layer base {
+  h1 {
+    @apply text-3xl font-medium text-primary dark:text-[var(--color-text)] sm:text-4xl lg:text-h1;
+  }
+
+  h2 {
+    @apply text-2xl font-medium text-primary dark:text-[var(--color-text)] lg:text-h2;
+  }
+
+  h3 {
+    @apply text-xl font-medium text-primary dark:text-[var(--color-text)] lg:text-h3;
+  }
+
+  p {
+    @apply text-body text-secondary dark:text-[var(--color-text-muted)];
+  }
+
+  a {
+    @apply text-accent-dark underline-offset-4 transition-colors hover:underline;
+  }
+
+  code,
+  pre {
+    @apply font-mono text-small;
+  }
+}
