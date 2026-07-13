@@ -1,5 +1,4 @@
-<<<<<<< HEAD
-# Builder Portfolio
+# Riccardo's Portfolio
 
 High-performance portfolio showcasing deep learning projects and technical writing.
 
@@ -46,4 +45,3 @@ See `TECHNICAL_SPECIFICATION.md` for the full architecture, component map, and d
 =======
 # riccardo-pittino-portfolio
 Repo for my portfolio
->>>>>>> 80d333a51c84d19987dbcd7a215fd17dac568899
