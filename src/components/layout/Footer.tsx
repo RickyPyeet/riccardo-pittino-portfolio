@@ -49,11 +49,12 @@ export function Footer() {
                 <li key={link.id}>
                   <a
                     href={link.href}
-                    className="text-small text-secondary transition-colors hover:text-accent-dark dark:text-[var(--color-text-muted)] dark:hover:text-accent"
+                    className="inline-flex items-center gap-2 text-small text-secondary transition-colors hover:text-accent-dark dark:text-[var(--color-text-muted)] dark:hover:text-accent"
                     target={link.id !== 'email' ? '_blank' : undefined}
                     rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
                   >
-                    {link.label}
+                    <link.icon className="h-4 w-4" aria-hidden="true" />
+                    <span>{link.label}</span>
                   </a>
                 </li>
               ))}

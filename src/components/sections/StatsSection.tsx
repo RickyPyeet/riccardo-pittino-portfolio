@@ -2,10 +2,10 @@ import { Container } from '@/components/layout/Container';
 import { StatCard } from '@/components/cards/StatCard';
 
 const stats = [
-  { value: '12+', label: 'Projects Shipped' },
-  { value: '8', label: 'Technical Articles' },
-  { value: '4', label: 'Years in ML' },
-  { value: '3', label: 'Open Source Tools' },
+  { value: '3', label: 'Deep Learning Systems Built' },
+  { value: '3', label: 'Architectures Reimplemented' },
+  { value: '1M+', label: 'Training Steps Exectuted' },
+  { value: '0', label: 'Technical Articles Published' },
 ];
 
 export function StatsSection() {

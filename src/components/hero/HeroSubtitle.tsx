@@ -19,8 +19,7 @@ export function HeroSubtitle() {
       className="mt-md max-w-xl text-lg text-secondary dark:text-[var(--color-text-muted)]"
       {...motionProps}
     >
-      {siteMeta.role}. I ship deep learning projects and write about the
-      decisions behind them — problem, decision, outcome.
+      Self-taught developer exploring Computer Vision and generative AI through implementation, research and technical writing.
     </motion.p>
   );
 }

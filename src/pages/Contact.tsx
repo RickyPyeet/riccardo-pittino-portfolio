@@ -9,7 +9,7 @@ export default function Contact() {
       <Container className="py-xl">
         <div className="grid gap-12 lg:grid-cols-2">
           <div>
-            <h1>Get in Touch</h1>
+            <h1>Get in <span className="text-accent-dark dark:text-accent">Touch</span></h1>
             <p className="mt-md max-w-md">
               Interested in collaborating, hiring, or discussing an ML project?
               Send a message and I&apos;ll respond within a few business days.
@@ -24,11 +24,12 @@ export default function Contact() {
                   <li key={link.id}>
                     <a
                       href={link.href}
-                      className="text-small text-accent-dark no-underline hover:underline dark:text-accent"
+                      className="inline-flex items-center gap-2 text-small text-accent-dark no-underline hover:underline dark:text-accent"
                       target={link.id !== 'email' ? '_blank' : undefined}
                       rel={link.id !== 'email' ? 'noopener noreferrer' : undefined}
                     >
-                      {link.label}
+                      <link.icon className="h-4 w-4" aria-hidden="true" />
+                      <span>{link.label}</span>
                       {link.username && (
                         <span className="text-tertiary"> — {link.username}</span>
                       )}

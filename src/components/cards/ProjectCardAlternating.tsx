@@ -1,11 +1,11 @@
 import { HiExternalLink } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
 
 import { FadeInOnScroll } from '@/components/animations/FadeInOnScroll';
 import { Badge } from '@/components/ui/Badge';
 import { Button } from '@/components/ui/Button';
 import { Image } from '@/components/ui/Image';
 import { Tag } from '@/components/ui/Tag';
-import { DecisionCallout } from '@/components/cards/DecisionCallout';
 import type { Project } from '@/types';
 import { cn } from '@/utils/classNames';
 
@@ -30,8 +30,8 @@ export function ProjectCardAlternating({
           <Image
             src={project.image}
             alt={project.imageAlt}
-            width={600}
-            height={400}
+            width={720}
+            height={480}
           />
         </div>
 
@@ -40,7 +40,10 @@ export function ProjectCardAlternating({
             <Badge variant="difficulty" difficulty={project.difficulty}>
               {project.difficulty}
             </Badge>
-            <Badge variant="category">{project.category.replace(/-/g, ' ')}</Badge>
+            {project.categories.map((category) => (
+              <Badge key = {category} variant="category">{category.replace(/-/g, ' ')}</Badge>
+            ))}
+            
           </div>
 
           <h2 className="text-h3">{project.title}</h2>
@@ -49,16 +52,33 @@ export function ProjectCardAlternating({
           <div className="mt-4 space-y-3">
             <div>
               <p className="text-tiny font-medium uppercase tracking-wide text-tertiary">
-                Problem
+                Dataset
               </p>
-              <p className="mt-1 text-small">{project.problem}</p>
+              <p className="mt-1 text-small">{project.dataset}</p>
             </div>
-            <DecisionCallout>{project.decision}</DecisionCallout>
             <div>
               <p className="text-tiny font-medium uppercase tracking-wide text-tertiary">
-                Outcome
+                Architecture
               </p>
-              <p className="mt-1 text-small">{project.outcome}</p>
+              <p className="mt-1 text-small">{project.architecture}</p>
+            </div>
+            <div>
+              <p className="text-tiny font-medium uppercase tracking-wide text-tertiary">
+                Framework
+              </p>
+              <p className="mt-1 text-small">{project.framework}</p>
+            </div>
+            <div>
+              <p className="text-tiny font-medium uppercase tracking-wide text-tertiary">
+                Key Result
+              </p>
+              <p className="mt-1 text-small">{project.result}</p>
+            </div>
+            <div>
+              <p className="text-tiny font-medium uppercase tracking-wide text-tertiary">
+                Main Challenge
+              </p>
+              <p className="mt-1 text-small">{project.challenge}</p>
             </div>
           </div>
 
@@ -69,6 +89,12 @@ export function ProjectCardAlternating({
           </div>
 
           <div className="mt-6 flex flex-wrap gap-3">
+            <Link
+            to={`/projects/${project.slug}`}
+            className="inline-flex items-center justify-center rounded-full bg-primary px-5 py-2 text-small font-medium text-white transition-colors hover:bg-accent-dark"
+          >
+            Read Case Study
+          </Link>
             {project.githubUrl && (
               <Button
                 href={project.githubUrl}

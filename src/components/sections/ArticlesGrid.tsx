@@ -5,9 +5,12 @@ import { ArticleCard } from '@/components/cards/ArticleCard';
 import { Container } from '@/components/layout/Container';
 import { articles, articleCategories } from '@/data/articles';
 import { cn } from '@/utils/classNames';
+import type { ArticleCategory } from '@/types';
+
+type ActiveCategory = ArticleCategory | 'all';
 
 export function ArticlesGrid() {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<ActiveCategory>('all');
 
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'all') {
@@ -15,17 +18,17 @@ export function ArticlesGrid() {
     }
 
     return articles.filter(
-      (article) => article.category === activeCategory,
+      (article) => article.categories.includes(activeCategory),
     );
   }, [activeCategory]);
 
   return (
     <section aria-labelledby="articles-heading">
       <Container className="py-xl">
-        <h1 id="articles-heading">Articles</h1>
+        <h1 id="articles-heading">Technical <span className="text-accent-dark dark:text-accent">Writing</span></h1>
         <p className="mt-md max-w-2xl">
-          Technical writing on ML engineering, research, and the decisions
-          behind production systems.
+          Notes, implementation reports, and educational articles documenting
+          what I learn while building deep learning systems from scratch.
         </p>
 
         <div

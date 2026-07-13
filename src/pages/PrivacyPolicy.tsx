@@ -1,5 +1,6 @@
 import { Container } from '@/components/layout/Container';
 import { siteMeta } from '@/data/social';
+import { socialLinks } from '@/data/social';
 
 export default function PrivacyPolicy() {
   return (
@@ -46,16 +47,6 @@ export default function PrivacyPolicy() {
             </p>
           </section>
 
-          <section>
-            <h2>Contact</h2>
-            <p className="mt-2">
-              Questions about this policy? Email{' '}
-              <a href="mailto:hello@builder-portfolio.dev">
-                hello@builder-portfolio.dev
-              </a>
-              .
-            </p>
-          </section>
         </div>
       </Container>
     </main>

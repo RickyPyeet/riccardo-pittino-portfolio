@@ -45,7 +45,7 @@ const config: Config = {
         mono: ['Courier New', 'monospace'],
       },
       maxWidth: {
-        container: '1040px',
+        container: '1400px',
       },
       boxShadow: {
         focus: '0 0 0 2px #5DCAA5',

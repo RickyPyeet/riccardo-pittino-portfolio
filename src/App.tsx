@@ -10,6 +10,7 @@ import { trackPageView } from '@/services/analytics';
 
 const Home = lazy(() => import('@/pages/Home'));
 const Projects = lazy(() => import('@/pages/Projects'));
+const ProjectDetail = lazy(() => import('@/pages/ProjectDetail'));
 const Articles = lazy(() => import('@/pages/Articles'));
 const ArticleDetail = lazy(() => import('@/pages/ArticleDetail'));
 const About = lazy(() => import('@/pages/About'));
@@ -56,6 +57,7 @@ const router = createBrowserRouter([
     children: [
       { path: '/', element: <Home /> },
       { path: '/projects', element: <Projects /> },
+      { path: '/projects/:slug', element: <ProjectDetail />},
       { path: '/articles', element: <Articles /> },
       { path: '/articles/:slug', element: <ArticleDetail /> },
       { path: '/about', element: <About /> },

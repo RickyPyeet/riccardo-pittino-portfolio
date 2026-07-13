@@ -1,4 +1,4 @@
-import { HiCode, HiDatabase, HiLightningBolt, HiServer } from 'react-icons/hi';
+import { HiCode, HiLightningBolt, HiSparkles, HiAcademicCap } from 'react-icons/hi';
 
 import { FeatureCard } from '@/components/cards/FeatureCard';
 import { Container } from '@/components/layout/Container';
@@ -8,41 +8,38 @@ import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerCo
 const features = [
   {
     icon: HiCode,
-    title: 'Deep Learning',
+    title: 'Computer Vision',
     description:
-      'PyTorch, transformers, computer vision, and NLP — from research prototypes to production models.',
+      'Object detection, CNN architectures, evaluation metrics, and visual recognition systems.',
   },
   {
-    icon: HiServer,
-    title: 'MLOps',
+    icon: HiSparkles,
+    title: 'Generative AI',
     description:
-      'Model serving, experiment tracking, CI/CD for ML, and observability at scale.',
-  },
-  {
-    icon: HiDatabase,
-    title: 'Data Engineering',
-    description:
-      'Pipelines for labeling, feature stores, and reproducible dataset versioning.',
+      'Diffusion models, image generation, latent representations, and modern generative architectures.',
   },
   {
     icon: HiLightningBolt,
-    title: 'Technical Writing',
+    title: 'Deep Learning Systems',
     description:
-      'Clear documentation of architectural decisions, trade-offs, and lessons learned.',
+      'From-scratch implementations, training pipelines, debugging, optimization, and experimentation.',
+  },
+  {
+    icon: HiAcademicCap,
+    title: 'Teaching & Knowledge Sharing',
+    description:
+      'Technical writing, mountaineering instruction, and making complex ideas easier to understand.',
   },
 ];
 
 const skills = [
   'Python',
   'PyTorch',
-  'TypeScript',
-  'React',
-  'Kubernetes',
-  'FastAPI',
-  'LangChain',
+  'OpenCV',
+  'Transformers',
+  'Diffusers',
   'Weights & Biases',
-  'Docker',
-  'SQL',
+  'Gradio',
 ];
 
 export function SkillsSection() {
@@ -51,8 +48,7 @@ export function SkillsSection() {
       <Container>
         <h2 id="skills-heading">Skills & Focus Areas</h2>
         <p className="mt-2 max-w-xl text-small">
-          Core competencies across the ML stack, from model development to
-          deployment.
+          Focused on understanding and building modern AI systems from first principles.
         </p>
 
         <StaggerContainer className="mt-lg grid gap-6 md:grid-cols-2 lg:grid-cols-4">

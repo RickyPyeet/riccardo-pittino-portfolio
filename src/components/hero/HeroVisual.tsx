@@ -21,12 +21,12 @@ export function HeroVisual() {
         aria-hidden="true"
       />
       <Image
-        src="/images/hero/hero.webp"
-        alt="Abstract neural network visualization with teal accent nodes"
-        width={600}
-        height={400}
+        src="/images/hero/yolo-detection.webp"
+        alt="Collage showing various models output"
+        width={720}
+        height={520}
         priority
-        className="relative shadow-lg"
+        className="h-full w-full rounded-3x1 object-cover"
       />
     </motion.div>
   );

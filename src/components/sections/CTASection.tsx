@@ -8,10 +8,12 @@ export function CTASection() {
       <Container>
         <FadeInOnScroll>
           <div className="rounded-2xl border border-primary/10 bg-accent-light/30 px-6 py-12 text-center dark:border-[var(--color-border)] dark:bg-accent-dark/10 md:px-12">
-            <h2 id="cta-heading">Let&apos;s build something together</h2>
+            <h2 id="cta-heading">Interested in machine learning systems?</h2>
             <p className="mx-auto mt-3 max-w-lg text-small">
-              Open to ML engineering roles, research collaborations, and
-              consulting on production AI systems.
+              I'm exploring computer vision, diffusion models, and generative AI through 
+              implementation-focused projects and technical writing. 
+              If you'd like to discuss machine learning, research engineering, or potential opportunities, 
+              I'd be happy to connect.
             </p>
             <div className="mt-6 flex flex-wrap justify-center gap-4">
               <Button to="/contact" size="lg">

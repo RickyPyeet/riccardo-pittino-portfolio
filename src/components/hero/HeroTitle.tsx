@@ -15,9 +15,8 @@ export function HeroTitle() {
 
   return (
     <motion.h1 {...motionProps}>
-      Building systems that
-      <span className="text-accent-dark dark:text-accent"> learn</span> and
-      scale
+      Deep 
+      <span className="text-accent-dark dark:text-accent"> Learning</span> Engineer
     </motion.h1>
   );
 }

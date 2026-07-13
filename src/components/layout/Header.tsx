@@ -24,7 +24,7 @@ export function Header() {
         <div className="container-app flex h-16 items-center justify-between">
           <Link
             to="/"
-            className="text-lg font-medium text-primary dark:text-[var(--color-text)]"
+            className="text-lg font-medium"
             aria-label={`${siteMeta.name} home`}
           >
             {siteMeta.name}
@@ -34,7 +34,7 @@ export function Header() {
 
           <button
             type="button"
-            className="rounded-md p-2 text-secondary hover:text-accent-dark focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
+            className="rounded-md p-2 text-secondary transition-colors hover:text-accent-dark dark:hover:text-accent focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent lg:hidden"
             onClick={openMobileMenu}
             aria-label="Open menu"
             aria-expanded={isMobileMenuOpen}

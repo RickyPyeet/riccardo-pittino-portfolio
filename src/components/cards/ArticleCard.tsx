@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-
 import { Badge } from '@/components/ui/Badge';
 import { Image } from '@/components/ui/Image';
 import { Tag } from '@/components/ui/Tag';
@@ -42,22 +40,36 @@ export function ArticleCard({
 
       <div className="flex flex-1 flex-col p-5">
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <Badge variant="category">{article.category}</Badge>
+          {article.categories.map((category) => (
+            <Badge key={category} variant="category">
+              {category.replace(/-/g, ' ')}
+            </Badge>
+          ))}
           <span className="text-tiny text-tertiary">
             {formatDate(article.publishedAt)}
           </span>
           <span className="text-tiny text-tertiary">
-            {formatReadingTime(readingTime)}
+            {article.isPublished
+              ? formatReadingTime(readingTime)
+              : 'Draft'}
           </span>
         </div>
 
         <h3 className="text-xl">
-          <Link
-            to={`/articles/${article.slug}`}
-            className="text-primary no-underline transition-colors hover:text-accent-dark dark:text-[var(--color-text)] dark:hover:text-accent"
-          >
-            {article.title}
-          </Link>
+          {article.isPublished && article.articleUrl ? (
+            <a
+              href={article.articleUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-primary no-underline transition-colors hover:text-accent-dark dark:hover:text-accent"
+            >
+              {article.title}
+            </a>
+          ) : (
+            <span className="text-primary">
+              {article.title}
+            </span>
+          )}
         </h3>
 
         <p className="mt-2 flex-1 text-small">{article.excerpt}</p>
@@ -68,12 +80,20 @@ export function ArticleCard({
           ))}
         </div>
 
-        <Link
-          to={`/articles/${article.slug}`}
-          className="mt-4 text-small font-medium text-accent-dark no-underline hover:underline dark:text-accent"
-        >
-          Read article →
-        </Link>
+        {article.isPublished && article.articleUrl ? (
+          <a
+            href={article.articleUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-4 text-small font-medium text-accent-dark no-underline hover:underline dark:text-accent"
+          >
+            Read article →
+          </a>
+        ) : (
+          <span className="mt-4 text-small font-medium text-tertiary">
+            Coming soon →
+          </span>
+        )}
       </div>
     </article>
   );

@@ -22,8 +22,8 @@ export function HeroButtons() {
       <Button to="/projects" size="lg">
         View Projects
       </Button>
-      <Button to="/contact" variant="secondary" size="lg">
-        Get in Touch
+      <Button to="/articles" variant="secondary" size="lg">
+        Read Articles
       </Button>
     </motion.div>
   );

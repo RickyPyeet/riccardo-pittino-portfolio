@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import type { ProjectCategory } from '@/types';
 
 import { ProjectCardAlternating } from '@/components/cards/ProjectCardAlternating';
 import { Container } from '@/components/layout/Container';
@@ -6,8 +7,10 @@ import { Divider } from '@/components/ui/Divider';
 import { projects, projectCategories } from '@/data/projects';
 import { cn } from '@/utils/classNames';
 
+type ActiveCategory = ProjectCategory | 'all';
+
 export function ProjectsGrid() {
-  const [activeCategory, setActiveCategory] = useState<string>('all');
+  const [activeCategory, setActiveCategory] = useState<ActiveCategory>('all');
 
   const filteredProjects = useMemo(() => {
     if (activeCategory === 'all') {
@@ -15,7 +18,7 @@ export function ProjectsGrid() {
     }
 
     return projects.filter(
-      (project) => project.category === activeCategory,
+      (project) => project.categories.includes(activeCategory),
     );
   }, [activeCategory]);
 
@@ -24,8 +27,8 @@ export function ProjectsGrid() {
       <Container className="py-xl">
         <h1 id="projects-heading">Projects</h1>
         <p className="mt-md max-w-2xl">
-          Deep learning and ML engineering work — each case study follows a
-          clear problem → decision → outcome structure.
+          A collection of deep learning projects covering 
+          computer vision, diffusion models, and text-to-image generation.
         </p>
 
         <div

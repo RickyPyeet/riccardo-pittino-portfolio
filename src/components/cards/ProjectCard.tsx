@@ -59,15 +59,26 @@ export function ProjectCard({
 
         <p className="mt-2 flex-1 text-small">{project.summary}</p>
 
-        <div className="mt-4 flex flex-wrap gap-2">
-          {project.tags.slice(0, isCompact ? 3 : 4).map((tag) => (
-            <Tag key={tag}>{tag}</Tag>
-          ))}
+        <div className="mt-4 grid gap-3 text-small">
+          <div>
+            <span className="font-medium text-[var(--color-text)]">Dataset:</span>{' '}
+            {project.dataset}
+          </div>
+
+          <div>
+            <span className="font-medium text-[var(--color-text)]">Architecture:</span>{' '}
+            {project.architecture}
+          </div>
+
+          <div>
+            <span className="font-medium text-[var(--color-text)]">Key Result:</span>{' '}
+            {project.result}
+          </div>
         </div>
 
         <div className="mt-4 flex items-center gap-4">
           <Link
-            to={`/projects#${project.slug}`}
+            to={`/projects/${project.slug}`}
             className="inline-flex items-center gap-1 text-small font-medium text-accent-dark no-underline hover:underline dark:text-accent"
           >
             Read case study
