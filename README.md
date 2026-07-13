@@ -42,6 +42,4 @@ Copy `.env.example` to `.env.local` and set:
 ## Project structure
 
 See `TECHNICAL_SPECIFICATION.md` for the full architecture, component map, and deployment checklist.
-=======
-# riccardo-pittino-portfolio
-Repo for my portfolio
+
