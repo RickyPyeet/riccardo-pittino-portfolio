@@ -1,4 +1,5 @@
-# Riccardo's Portfolio
+<<<<<<< HEAD
+# Builder Portfolio
 
 High-performance portfolio showcasing deep learning projects and technical writing.
 
@@ -42,4 +43,7 @@ Copy `.env.example` to `.env.local` and set:
 ## Project structure
 
 See `TECHNICAL_SPECIFICATION.md` for the full architecture, component map, and deployment checklist.
-
+=======
+# riccardo-pittino-portfolio
+Repo for my portfolio
+>>>>>>> 80d333a51c84d19987dbcd7a215fd17dac568899
