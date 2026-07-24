@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion';
 
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion';
-import { siteMeta } from '@/data/social';
 
 export function HeroSubtitle() {
   const prefersReducedMotion = usePrefersReducedMotion();
