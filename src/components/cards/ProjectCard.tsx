@@ -3,7 +3,6 @@ import { HiArrowRight, HiExternalLink } from 'react-icons/hi';
 
 import { Badge } from '@/components/ui/Badge';
 import { Image } from '@/components/ui/Image';
-import { Tag } from '@/components/ui/Tag';
 import type { Project } from '@/types';
 import { formatDateShort } from '@/utils/formatDate';
 import { cn } from '@/utils/classNames';
