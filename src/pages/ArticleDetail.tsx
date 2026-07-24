@@ -28,7 +28,13 @@ export default function ArticleDetail() {
 
   const readingTime = getReadingTime(getArticleContent(article));
   const relatedArticles = articles
-    .filter((a) => a.slug !== article.slug && a.category === article.category)
+    .filter(
+      (a) =>
+        a.slug !== article.slug &&
+        a.categories.some((category) =>
+          article.categories.includes(category)
+        )
+    )
     .slice(0, 2);
 
   return (
@@ -45,7 +51,13 @@ export default function ArticleDetail() {
           <article>
             <header>
               <div className="mb-4 flex flex-wrap items-center gap-3">
-                <Badge variant="category">{article.category}</Badge>
+                <div className="flex flex-wrap gap-2">
+                  {article.categories.map((category) => (
+                    <Badge key={category} variant="category">
+                      {category}
+                    </Badge>
+                  ))}
+                </div>
                 <span className="text-tiny text-tertiary">
                   {formatDate(article.publishedAt)}
                 </span>
