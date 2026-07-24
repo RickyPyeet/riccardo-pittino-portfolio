@@ -1,6 +1,5 @@
 import { Container } from '@/components/layout/Container';
 import { siteMeta } from '@/data/social';
-import { socialLinks } from '@/data/social';
 
 export default function PrivacyPolicy() {
   return (
