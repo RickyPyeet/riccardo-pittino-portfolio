@@ -33,6 +33,23 @@ export const articles: Article[] = [
     articleUrl: 'https://medium.com/@ricca.pit/diffusion-u-net-architecture-and-building-blocks-2875bb0deb16',
     isPublished: true
   },
+  {
+    slug: 'resnets-residual-blocks-for-diffusion-models',
+    title: 'ResNets — Residual Blocks for Diffusion Models',
+    excerpt:
+      'An educational walkthrough of residual blocks used in modern diffusion models, such as U-Nets, covering design choices and FiLM conditioning for time or class',
+    categories: ['diffusion-models', 'generative-ai'],
+    publishedAt: '2026-07-24',
+    author: 'Riccardo Pittino',
+    tags: ['Diffusion Models', 'DDPM', 'PyTorch', 'Generative AI'],
+    image: '/images/articles/ddpm/residual_block_article_cover.png',
+    imageAlt: 'Unet article cover showing an overview of a unet architecture',
+    featured: true,
+    sections: [],
+    articleUrl: 'https://medium.com/@ricca.pit/resnets-residual-blocks-for-diffusion-models-e5ac35677563',
+    isPublished: true
+  },
+
 
 ];
 
