@@ -1,165 +1,260 @@
 import type { Project } from '@/types';
 
 export const projects: Project[] = [
-  {
-    slug: 'yolov1',
-    title: 'YOLOv1',
-    summary:
-      'Implemented the original YOLO object detection architecture in PyTorch, including the backbone, detection head, loss function, mAP evaluation, and NMS.',
+{
+  slug: 'yolov1',
+  title: 'YOLOv1',
+  summary:
+    'Implemented the original YOLOv1 detector in PyTorch and evaluated how learning rate scheduling and normalization affected training stability and mAP.',
 
-    dataset: 'Pascal VOC 2007 + 2012',
-    architecture: 'YOLOv1',
-    framework: 'PyTorch',
-    duration: '8 weeks',
-    status: 'Completed',
+  dataset: 'Pascal VOC 2007 + 2012',
+  architecture: 'YOLOv1',
+  framework: 'PyTorch',
+  duration: '8 weeks',
+  status: 'Completed',
 
-    result: '0.50 mAP',
-    challenge: 'Implementing YOLO loss, responsible box assignment, and NMS.',
+  result: '0.50 mAP',
+  challenge:
+    'Implementing the detection loss, target assignment, evaluation pipeline, and stable training configuration.',
 
-    problem:
-      'Object detection requires predicting both object classes and bounding boxes in a single model. YOLOv1 was selected because it exposes the core engineering challenges behind one-stage detectors.',
-    decision:
-      'Recreated the YOLOv1 pipeline with a custom PyTorch implementation, including dataset parsing, grid-cell target construction, loss computation, mAP evaluation, and inference-time post-processing.',
-    outcome:
-      'Built a complete object detection system and reached approximately 0.50 mAP after improving normalization, loss behavior, and evaluation consistency.',
-    caseStudy: {
-      overview: {
-        title: 'Overview',
-        body:
-          'I implemented the original YOLOv1 object detector from scratch in PyTorch to better understand how modern object detection systems perform localization and classification in a single forward pass. The project included rebuilding the backbone, detection head, loss function, evaluation pipeline, and inference workflow rather than relying on existing detection frameworks.',
-      },
-      architecture: {
-        title: 'Architecture',
-        body:
-          'The implementation follows the original YOLOv1 architecture: a convolutional backbone produces a 7×7 feature grid which is processed by a detection head predicting bounding boxes, objectness scores, and class probabilities. To understand the model end-to-end, I implemented the full detection pipeline, including responsible box assignment, IoU computation, non-maximum suppression, and mAP evaluation.',
-      },
-      dataset: {
-        title: 'Dataset',
-        body:
-          'Training was performed on Pascal VOC 2007 and 2012. Building the dataset pipeline required parsing XML annotations, converting bounding boxes into YOLO grid-cell targets, handling data augmentation, and ensuring consistency between transformed images and bounding box coordinates.',
-      },
-      training: {
-        title: 'Training',
-        body:
-          'Training began with backbone pretraining on Tiny ImageNet before fine-tuning the detector on Pascal VOC. A significant portion of the work involved debugging the YOLO loss, balancing localization and no-object terms, validating mAP calculations, and experimenting with normalization strategies. One particularly impactful improvement came from replacing parts of the normalization pipeline, which noticeably improved detection performance.',
-      },
-      results: {
-        title: 'Results',
-        body:
-          'The final model achieved approximately 0.50 mAP on Pascal VOC and produced reliable detections across multiple object categories. Beyond the metric itself, the project resulted in a complete object detection system including training, evaluation, inference, visualization, and deployment.',
-      },
-      challenges: {
-        title: 'Challenges & Fixes',
-        body:
-          'The most challenging part of the project was implementing the YOLO loss correctly. Small mistakes in responsible box assignment, IoU computation, target construction, or loss weighting produced significant performance degradation. Debugging required extensive validation of intermediate tensors, visualization of predictions, and verification of the mAP and NMS implementations.',
-      },
-      lessons: {
-        title: 'Lessons Learned',
-        body:
-          'This project transformed object detection from a high-level concept into a practical engineering problem. Concepts such as IoU, NMS, grid-based prediction, detection losses, and evaluation metrics became tangible implementation details. The instability of training was also mitigated via techniques such as learning rate warm-up and learning rate scheduling, in addition to gradient clipping to avoid exploding gradients.',
-      },
+  problem:
+    'The project focused on understanding the complete training and inference pipeline of a one-stage object detector, from annotation processing and target construction to bounding-box evaluation and post-processing.',
+
+  decision:
+    'YOLOv1 was implemented without relying on an existing detection framework. The convolutional backbone was pretrained on Tiny ImageNet and kept frozen while the detection head was trained on Pascal VOC.',
+
+  outcome:
+    'The final model reached approximately 0.50 mAP. Experiments with learning rate warm-up, cosine scheduling, and GroupNorm improved convergence and training stability compared with the initial baseline.',
+
+  caseStudy: {
+    overview: {
+      title: 'Overview',
+      body:
+        'This project implements the original YOLOv1 object detector in PyTorch, including the Darknet backbone, detection head, YOLO loss, IoU, Non-Maximum Suppression, and mAP evaluation. Starting from a working baseline, the training pipeline was progressively refined through experiments on learning rate scheduling and normalization.',
     },
 
-    visuals: {
-      trainingLoss: '/images/projects/yolov1/yolo_train_loss.png',
-      validationLoss: '/images/projects/yolov1/yolo_val_loss.png',
-      metricPlot: '/images/projects/yolov1/yolo_map_score.png',
-      resultImage: '/images/projects/yolov1/yolo-detection.webp',
+    architecture: {
+      title: 'Architecture',
+      body:
+        'The model follows the original 7×7 grid-based prediction structure. Each grid cell predicts bounding boxes, objectness scores, and class probabilities. The remaining detection pipeline, including responsible-box assignment, IoU, NMS, and mAP, was implemented separately.',
     },
 
-    tags: ['PyTorch', 'Object Detection', 'YOLOv1', 'Pascal VOC', 'mAP', 'NMS'],
-    categories: ['computer-vision'],
-    difficulty: 'advanced',
+    dataset: {
+      title: 'Dataset',
+      body:
+        'The convolutional backbone was pretrained on Tiny ImageNet-200 and then transferred to Pascal VOC 2007 and 2012. During detector training, the backbone remained frozen while the detection head was optimized on the combined VOC dataset.',
+    },
 
-    featured: true,
+    training: {
+      title: 'Training & Experiments',
+      body:
+        'Four configurations were compared to evaluate the effect of the initial learning rate, linear warm-up, cosine scheduling, and normalization. Warm-up and scheduling improved early training stability, while replacing BatchNorm with GroupNorm produced the most stable optimization and the fastest convergence.',
+    },
 
-    image: '/images/projects/yolov1/yolo-detection.webp',
-    imageAlt: 'YOLOv1 object detection examples on Pascal VOC images',
+    results: {
+      title: 'Results',
+      body:
+        'The final configuration reached approximately 0.50 mAP. Learning rate warm-up and cosine decay moved convergence forward by about 20 epochs, while the GroupNorm experiment converged roughly 40 epochs earlier than the baseline and achieved the best validation mAP.',
+    },
 
-    githubUrl: '',
-    liveUrl: 'https://huggingface.co/spaces/Pitto16/YOLOv1',
+    challenges: {
+      title: 'Engineering Challenges',
+      body:
+        'The most error-prone components were target construction, responsible-box assignment, IoU calculation, and mAP evaluation. Small mistakes in these stages affected both training signals and reported performance, requiring intermediate tensor checks and visual inspection of detections.',
+    },
 
-    publishedAt: '2026-03-30',
+    lessons: {
+      title: 'Main Takeaway',
+      body:
+        'The experiments showed that training configuration had a substantial effect even when the architecture and dataset remained unchanged. In particular, normalization and learning rate behavior influenced both convergence speed and final detection performance.',
+    },
+
+    failures: {
+      title: 'Current Limitations',
+      body:
+        'The detector still struggles with small objects, crowded scenes, and precise localization. Confidence is also uneven across classes: some predictions are overconfident, while others require a low inference threshold to be retained.',
+    },
   },
-  {
-    slug: 'ddpm',
-    title: 'DDPM',
-    summary:
-      'Implemented a class-conditional diffusion model with a UNet denoiser, EMA weights, DDIM sampling, and classifier-free guidance.',
 
-    dataset: 'CIFAR-10',
-    architecture: 'DDPM + UNet',
-    framework: 'PyTorch',
-    duration: '6 weeks',
-    status: 'Completed',
-
-    result: 'Class-conditional image generation',
-    challenge: 'Improving sampling quality, training stability, and guidance behavior.',
-
-    problem:
-      'Diffusion models require learning a denoising process over many timesteps, making them difficult to debug, evaluate, and sample efficiently.',
-    decision:
-      'Built the diffusion training and sampling pipeline in PyTorch, including noise schedules, timestep conditioning, EMA, DDIM sampling, and classifier-free guidance.',
-    outcome:
-      'Produced class-conditional CIFAR-10 samples and developed a clearer understanding of denoising objectives, sampling tradeoffs, and training stability.',
-    caseStudy: {
-      overview: {
-        title: 'Overview',
-        body:
-          'This project explores diffusion-based generative modeling by implementing a Denoising Diffusion Probabilistic Model (DDPM) from scratch in PyTorch. The goal was to understand how modern generative models learn to reverse a gradual noise process and how architectural and training decisions affect sample quality.',
+  visuals: {
+    items: [
+      {
+        src: '/images/projects/yolov1/yolo_train_loss.png',
+        alt: 'YOLOv1 training loss across the compared training configurations',
+        caption:
+          'Training loss for the baseline, lower learning rate, warm-up with cosine scheduling, and GroupNorm experiments.',
+        section: 'training',
       },
-      architecture: {
-        title: 'Architecture',
-        body:
-          'The model uses a UNet-based denoiser with residual blocks, timestep conditioning, normalization layers, and attention mechanisms. During development I progressively extended the implementation with class conditioning, classifier-free guidance both in training and inference, DDIM sampling, exponential moving average (EMA) weights, and alternative prediction objectives such as v-prediction.',
+      {
+        src: '/images/projects/yolov1/yolo_val_loss.png',
+        alt: 'YOLOv1 validation loss across the compared training configurations',
+        caption:
+          'Validation loss across the four training configurations.',
+        section: 'training',
       },
-      dataset: {
-        title: 'Dataset',
-        body:
-          'Training was performed on CIFAR-10. While relatively small, the dataset provides a practical environment for studying diffusion training dynamics, evaluating sampling strategies, and experimenting with conditioning techniques without requiring excessive computational resources.',
+      {
+        src: '/images/projects/yolov1/yolo_map_score.png',
+        alt: 'YOLOv1 mean average precision across training',
+        caption:
+          'GroupNorm produced the fastest convergence and the highest validation mAP.',
+        section: 'results',
       },
-      training: {
-        title: 'Training',
-        body:
-          'Training evolved through multiple iterations. Starting from a basic DDPM implementation, I gradually introduced EMA weights, DDIM sampling, classifier-free guidance, and alternative prediction targets. A significant amount of experimentation focused on understanding how these components influence convergence speed, training stability, and generation quality.',
-      },
-      results: {
-        title: 'Results',
-        body:
-          'The final system produced class-conditional CIFAR-10 generations and clearly demonstrated the impact of training improvements such as EMA weighting and DDIM sampling. Beyond image generation itself, the project resulted in a complete diffusion pipeline including training, evaluation, sampling, conditioning, and inference workflows.',
-      },
-      challenges: {
-        title: 'Challenges & Fixes',
-        body:
-          'One of the most challenging aspects was connecting the mathematical formulation of diffusion models with their practical implementation. Debugging the sampling process, validating noise schedules, integrating guidance mechanisms, and understanding the differences between prediction objectives required extensive experimentation and verification.',
-      },
-      lessons: {
-        title: 'Lessons Learned',
-        body:
-          'Implementing a diffusion model from scratch provided a much deeper understanding of modern generative AI systems. Concepts such as denoising objectives, sampling tradeoffs, EMA, guidance techniques, and conditioning mechanisms became practical engineering tools rather than theoretical concepts.',
-      },
-
-    },
-    visuals: {
-      trainingLoss: '/images/projects/ddpm/ddpm-train-loss.png',
-      resultImage: '/images/projects/ddpm/ddim-sampling-collage.png',
-      gif: '/images/projects/ddpm/ddpm-gif.gif',
-    },
-
-    tags: ['PyTorch', 'Diffusion Models', 'DDPM', 'DDIM', 'EMA', 'CFG'],
-    categories: ['generative-ai', 'research'],
-    difficulty: 'advanced',
-
-    featured: true,
-
-    image: '/images/projects/ddpm/ddim-sampling-collage.png',
-    imageAlt: 'DDPM denoising progression and generated CIFAR-10 samples',
-
-    githubUrl: '',
-    liveUrl: '#',
-
-    publishedAt: '2026-02-01',
+    ],
   },
+
+  tags: [
+    'PyTorch',
+    'Object Detection',
+    'YOLOv1',
+    'Pascal VOC',
+    'mAP',
+    'NMS',
+  ],
+  categories: ['computer-vision'],
+  difficulty: 'advanced',
+
+  featured: true,
+
+  image: '/images/projects/yolov1/yolo-detection.webp',
+  imageAlt: 'YOLOv1 object detection examples on Pascal VOC images',
+
+  githubUrl: 'https://github.com/RickyPyeet/yolov1-pytorch',
+  liveUrl: 'https://huggingface.co/spaces/Pitto16/YOLOv1',
+
+  publishedAt: '2026-03-30',
+},
+{
+  slug: 'ddpm',
+  title: 'DDPM',
+  summary:
+    'Implemented a DDPM training pipeline in PyTorch and extended it with modern diffusion techniques to study training objectives, sampling strategies, and stabilization methods.',
+
+  dataset: 'CIFAR-10',
+  architecture: 'DDPM + UNet',
+  framework: 'PyTorch',
+  duration: '6 weeks',
+  status: 'Completed',
+
+  result: 'Best FID: 12.3',
+  challenge:
+    'Designing controlled experiments to compare prediction targets while keeping the training recipe unchanged.',
+
+  problem:
+    'Beyond reproducing DDPM, the objective was to understand how different training objectives and sampling strategies affect optimization stability and generation quality.',
+
+  decision:
+    'Starting from the original DDPM formulation, the implementation was progressively extended with DDIM sampling, EMA, classifier-free guidance, class conditioning, mixed precision, and YAML-based configuration to support reproducible experiments.',
+
+  outcome:
+    'A controlled ablation study comparing ε, x₀ and velocity prediction showed that, under the selected training recipe, velocity prediction achieved the best FID while ε prediction failed to generate meaningful samples with a 100-step DDIM sampler.',
+
+  caseStudy: {
+    overview: {
+      title: 'Overview',
+      body:
+        'This project implements a DDPM training pipeline in PyTorch and extends it with techniques commonly adopted by modern diffusion models. After reproducing the original algorithm, the project evolved into an experimental framework for studying training objectives, sampling strategies, and training stability.',
+    },
+
+    architecture: {
+      title: 'Architecture',
+      body:
+        'The model uses a UNet denoiser with residual blocks, sinusoidal timestep embeddings and self-attention. The training pipeline supports DDPM and DDIM sampling, EMA weights, classifier-free guidance, class conditioning, mixed precision, checkpointing, and YAML-based configuration.',
+    },
+
+    dataset: {
+      title: 'Dataset',
+      body:
+        'Training was performed on CIFAR-10. Its relatively small size allowed multiple controlled experiments to be completed while keeping the training recipe identical across all runs.',
+    },
+
+    training: {
+      title: 'Training & Experiments',
+      body:
+        'Three controlled training runs were performed to compare ε, x₀ and velocity prediction while keeping the remaining hyperparameters fixed. Throughout training, loss, gradient norm and FID were monitored to evaluate optimization stability and generation quality.',
+    },
+
+    results: {
+      title: 'Results',
+      body:
+        'Velocity prediction achieved the lowest FID, followed by x₀ prediction. Although the ε model remained numerically stable during training, it failed to generate meaningful samples when evaluated with a 100-step DDIM sampler, suggesting that the observed degradation was not caused by optimization instability alone.',
+    },
+
+    challenges: {
+      title: 'Engineering Challenges',
+      body:
+        'Once the baseline implementation was complete, the focus shifted from implementation to experimentation. Each ablation required isolating a single variable while keeping the remaining training configuration unchanged to produce meaningful comparisons.',
+    },
+
+    lessons: {
+      title: 'Main Takeaway',
+      body:
+        'Implementing the model was only the starting point. The most valuable part of the project was learning how seemingly small changes in the training recipe can substantially affect sample quality while leaving optimization metrics almost unchanged.',
+    },
+
+    failures: {
+      title: 'Current Limitations',
+      body:
+        `The interaction between ε prediction and DDIM sampling still requires further investigation, as it remains unclear whether the observed degradation originates from the prediction target, the training recipe, or the sampling procedure. FID was computed on 10k generated samples, so the reported values should be validated using the standard 50k-sample protocol. Future work will also investigate how attention placement influences both generation quality and computational cost.`,
+    },
+  },
+
+  visuals: {
+    items: [
+      {
+        src: '/images/projects/ddpm/ddpm-fid-full.png',
+        alt: 'FID comparison for epsilon, x0 and velocity prediction',
+        caption:
+          'FID measured every 100k training steps. Velocity achieved the best final result, while epsilon remained close to 220.',
+        section: 'results',
+      },
+      {
+        src: '/images/projects/ddpm/ddim-sampling-collage.png',
+        alt: 'Generated CIFAR-10 samples from x0 and velocity prediction models',
+        caption:
+          'Qualitative comparison between samples generated by the x₀ and velocity models.',
+        section: 'results',
+      },
+      {
+        src: '/images/projects/ddpm/float16_divergence.png',
+        alt: 'Training loss spikes caused by float16 mixed precision',
+        caption:
+          'Using float16 introduced instability in the epsilon run; switching to bfloat16 removed the divergence.',
+        section: 'challenges',
+      },
+      {
+        src: '/images/projects/ddpm/ddpm-gif.gif',
+        alt: 'DDPM denoising process from random noise to a generated image',
+        caption:
+          'Denoising progression during sampling.',
+        section: 'lessons',
+        display: 'pixelated',
+      },
+    ],
+  },
+
+  tags: [
+    'PyTorch',
+    'Diffusion Models',
+    'DDPM',
+    'DDIM',
+    'EMA',
+    'CFG',
+    'Research',
+  ],
+
+  categories: ['generative-ai', 'research'],
+  difficulty: 'advanced',
+
+  featured: true,
+
+  image: '/images/projects/ddpm/ddim-sampling-collage.png',
+  imageAlt: 'Class-conditional DDPM generations on CIFAR-10',
+
+  githubUrl: 'https://github.com/RickyPyeet/ddpm-pytorch',
+  liveUrl: '#',
+
+  publishedAt: '2026-02-01',
+},
    {
     slug: 'latent-diffusion',
     title: 'Latent Diffusion',
@@ -217,12 +312,46 @@ export const projects: Project[] = [
         body:
           'This project connected multiple areas of deep learning: VAEs, transformers, cross-attention, diffusion models, and multimodal learning. It significantly improved my understanding of modern generative AI architectures.',
       },
+      failures: {
+        title: 'Failures and Improvements',
+        body:
+          `While the model started generating some recognizable samples it still doesn't perform well over all its classes. 
+          Geometrical classes such as "pizza" are better generated, while classes such as "person" or "bycicle" are still hard to sample correctly.`
+      }
     },
-    visuals: {
-      trainingLoss: '/images/projects/ddpm/ddpm-train-loss.png',
-      resultImage: '/images/projects/ddpm/ddim-sampling-collage.png',
-      gif: '/images/projects/ddpm/ddpm-gif.gif',
-    },
+  visuals: {
+    items: [
+      {
+        src: '/images/projects/ddpm/ddpm-fid-full.png',
+        alt: 'FID comparison for epsilon, x0 and velocity prediction',
+        caption:
+          'FID measured every 100k training steps. Velocity achieved the best final result, while epsilon remained close to 220.',
+        section: 'results',
+      },
+      {
+        src: '/images/projects/ddpm/ddim-sampling-collage.png',
+        alt: 'Generated CIFAR-10 samples from x0 and velocity prediction models',
+        caption:
+          'Qualitative comparison between samples generated by the x₀ and velocity models.',
+        section: 'results',
+      },
+      {
+        src: '/images/projects/ddpm/float16_divergence.png',
+        alt: 'Training loss spikes caused by float16 mixed precision',
+        caption:
+          'Using float16 introduced instability in the epsilon run; switching to bfloat16 removed the divergence.',
+        section: 'challenges',
+      },
+      {
+        src: '/images/projects/ddpm/ddpm-gif.gif',
+        alt: 'DDPM denoising process from random noise to a generated image',
+        caption:
+          'Denoising progression during sampling.',
+        section: 'lessons',
+        display: 'pixelated',
+      },
+    ],
+  },
     tags: ['PyTorch', 'Latent Diffusion', 'VAE', 'CLIP', 'Cross Attention', 'COCO'],
     categories: ['generative-ai', 'research'],
     difficulty: 'research-level',

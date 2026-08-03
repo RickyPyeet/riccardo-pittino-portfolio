@@ -9,17 +9,31 @@ export type ProjectCategory =
   | 'generative-ai'
   | 'research';
 
+export type CaseStudyKey =
+  | 'overview'
+  | 'architecture'
+  | 'dataset'
+  | 'training'
+  | 'results'
+  | 'challenges'
+  | 'lessons'
+  | 'failures';
+
 export interface CaseStudySection {
   title: string;
   body: string;
 }
 
+export interface ProjectVisual {
+  src: string;
+  alt: string;
+  caption?: string;
+  section: CaseStudyKey;
+  display?: 'standard' | 'compact' | 'pixelated';
+}
+
 export interface ProjectVisuals {
-  trainingLoss?: string;
-  validationLoss?: string;
-  metricPlot?: string;
-  resultImage?: string;
-  gif?: string;
+  items: ProjectVisual[];
 }
 
 export interface Project {
@@ -54,15 +68,8 @@ export interface Project {
 
   publishedAt: string;
 
-  caseStudy: {
-  overview: CaseStudySection;
-  architecture: CaseStudySection;
-  dataset: CaseStudySection;
-  training: CaseStudySection;
-  results: CaseStudySection;
-  challenges: CaseStudySection;
-  lessons: CaseStudySection;
-};
+  caseStudy: Record<CaseStudyKey, CaseStudySection>;
+  
   visuals?: ProjectVisuals;
 }
 
