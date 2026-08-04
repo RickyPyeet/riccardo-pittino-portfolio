@@ -353,7 +353,7 @@ export const projects: Project[] = [
   ],
 
   categories: ['generative-ai', 'research'],
-  difficulty: 'research-level',
+  difficulty: 'advanced',
 
   featured: true,
 
