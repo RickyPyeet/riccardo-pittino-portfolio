@@ -103,7 +103,7 @@ export function ProjectCardAlternating({
                 ariaLabel={`View ${project.title} source code`}
               >
                 <HiExternalLink size={16} aria-hidden="true" />
-                View Code
+                View Source
               </Button>
             )}
             {project.liveUrl && (
