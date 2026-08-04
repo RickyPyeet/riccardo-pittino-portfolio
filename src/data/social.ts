@@ -20,7 +20,7 @@ export const socialLinks: SocialLink[] = [
   {
     id: 'linkedin',
     label: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/riccardo-pittino-638a0ab9/',
+    href: 'https://www.linkedin.com/in/riccardo-pittino/',
     username: 'Riccardo Pittino',
     icon: FaLinkedin,
   },
