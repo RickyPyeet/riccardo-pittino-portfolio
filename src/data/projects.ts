@@ -255,117 +255,117 @@ export const projects: Project[] = [
 
   publishedAt: '2026-02-01',
 },
-   {
-    slug: 'latent-diffusion',
-    title: 'Latent Diffusion',
-    summary:
-      'Built a text-to-image latent diffusion pipeline using a frozen VAE, CLIP text encoder, and cross-attention conditioned UNet.',
+{
+  slug: 'latent-diffusion',
+  title: 'Latent Diffusion',
+  summary:
+    'Implemented a text-to-image latent diffusion pipeline in PyTorch using a frozen Stable Diffusion VAE, CLIP text conditioning, cross-attention, and offline latent caching.',
 
-    dataset: 'COCO Captions 2017',
-    architecture: 'Latent Diffusion + Cross-Attention UNet',
-    framework: 'PyTorch',
-    duration: 'In progress',
-    status: 'In Progress',
+  dataset: 'COCO Captions 2017',
+  architecture: 'Latent Diffusion + Cross-Attention UNet',
+  framework: 'PyTorch',
+  duration: '2 weeks',
+  status: 'Completed',
 
-    result: 'Text-to-image generation with COCO captions',
-    challenge: 'Training an efficient latent-space pipeline with text conditioning and model size limitations',
+  result: 'Text-conditioned image generation on COCO',
+  challenge:
+    'Reducing the preprocessing cost of repeated VAE inference during training.',
 
-    problem:
-      'Pixel-space diffusion is computationally expensive for image generation. Latent diffusion reduces training cost by learning the denoising process in a compressed latent space.',
-    decision:
-      'Combined a frozen pretrained VAE, frozen CLIP text encoder, and a custom cross-attention UNet trained on COCO image-caption pairs.',
-    outcome:
-      'Built a working text-conditioned latent diffusion pipeline and began producing prompt-conditioned samples while iterating on attention placement, learning rate, and training stability.',
-    caseStudy: {
-      overview: {
-        title: 'Overview',
-        body:
-          'This project extends diffusion modeling into latent space by combining a pretrained VAE, a CLIP text encoder, and a custom text-conditioned UNet. The goal was to understand the core ideas behind modern text-to-image systems.',
-      },
-      architecture: {
-        title: 'Architecture',
-        body:
-          'The pipeline consists of a frozen VAE for image compression, a frozen CLIP text encoder for prompt conditioning, and a diffusion UNet with cross-attention operating in latent space.',
-      },
-      dataset: {
-        title: 'Dataset',
-        body:
-          'Training uses COCO 2017 image-caption pairs. Each image is paired with natural language descriptions, enabling text-conditioned image generation.',
-      },
-      training: {
-        title: 'Training',
-        body:
-          'Experiments focused on latent-space diffusion, prompt conditioning, cross-attention placement, learning-rate tuning, EMA, and efficient training with frozen pretrained components.',
-      },
-      results: {
-        title: 'Results',
-        body:
-          'The model produces prompt-conditioned image generations and demonstrates the complete text-to-image pipeline used by modern latent diffusion systems.',
-      },
-      challenges: {
-        title: 'Challenges & Fixes',
-        body:
-          'Major challenges included integrating multiple pretrained components, handling latent representations correctly, debugging text conditioning, and optimizing training speed.',
-      },
-      lessons: {
-        title: 'Lessons Learned',
-        body:
-          'This project connected multiple areas of deep learning: VAEs, transformers, cross-attention, diffusion models, and multimodal learning. It significantly improved my understanding of modern generative AI architectures.',
-      },
-      failures: {
-        title: 'Failures and Improvements',
-        body:
-          `While the model started generating some recognizable samples it still doesn't perform well over all its classes. 
-          Geometrical classes such as "pizza" are better generated, while classes such as "person" or "bycicle" are still hard to sample correctly.`
-      }
+  problem:
+    'Pixel-space diffusion is computationally expensive, while text-to-image training also requires coordinating image compression, prompt conditioning, denoising, and sampling within the same pipeline.',
+
+  decision:
+    'The model was trained in latent space using a frozen Stable Diffusion VAE and CLIP text encoder. Images were encoded once and cached offline, while text embeddings were injected into the UNet through cross-attention.',
+
+  outcome:
+    'The final pipeline produced prompt-conditioned images across multiple random seeds and supported reproducible training, checkpointing, EMA weights, classifier-free guidance, Min-SNR weighting, and DDPM or DDIM sampling.',
+
+  caseStudy: {
+    overview: {
+      title: 'Overview',
+      body:
+        'This project implements a complete latent diffusion training pipeline in PyTorch using a frozen Stable Diffusion VAE and CLIP text encoder. The repository separates dataset preparation, latent caching, training, checkpointing, and sampling into independent components to keep the pipeline readable and suitable for experimentation.',
     },
+
+    architecture: {
+      title: 'Architecture',
+      body:
+        'Images are compressed into latent representations using a frozen VAE, while prompts are encoded with CLIP and injected into the UNet through cross-attention. The diffusion model operates entirely in latent space and supports EMA weights, classifier-free guidance, Min-SNR weighting, and both DDPM and DDIM sampling.',
+    },
+
+    dataset: {
+      title: 'Dataset',
+      body:
+        'Training was performed on COCO Captions 2017. Image latents were generated before training and stored on disk, allowing optimization to operate directly on latent tensors while preserving the corresponding text captions.',
+    },
+
+    training: {
+      title: 'Training & Pipeline',
+      body:
+        'The training pipeline was designed around independent preparation, caching, training, and sampling stages. Hyperparameters are managed through YAML configuration, while checkpointing and training resumption allow long runs to be continued without restarting from the beginning.',
+    },
+
+    results: {
+      title: 'Results',
+      body:
+        'The trained model produced coherent text-conditioned samples for several object categories and maintained semantic consistency across different random seeds. Stronger results were observed for visually regular classes such as pizzas, vehicles, airplanes, buses, motorcycles, and plants, while more complex human scenes remained less reliable.',
+    },
+
+    challenges: {
+      title: 'Engineering Challenges',
+      body:
+        'The initial pipeline encoded images with the frozen VAE during every training epoch, increasing runtime to roughly ten minutes per epoch. Profiling identified VAE inference as the main bottleneck, so an offline latent caching stage was introduced to encode the dataset once before training. Subsequent runs operated directly on cached latents, substantially reducing repeated preprocessing cost.',
+    },
+
+    lessons: {
+      title: 'Main Takeaway',
+      body:
+        'Implementing the denoising network was only one part of the project. Making training practical required identifying bottlenecks in the surrounding pipeline and restructuring data preparation so that repeated experiments could be run efficiently.',
+    },
+
+    failures: {
+      title: 'Current Limitations',
+      body:
+        'The model has not yet been evaluated quantitatively with FID or CLIP Score. Attention placement and model size were selected through implementation constraints rather than controlled ablations, so their effect on quality and runtime remains unverified. Generation quality also remains uneven for complex human scenes and detailed geometry.',
+    },
+  },
+
   visuals: {
     items: [
       {
-        src: '/images/projects/ddpm/ddpm-fid-full.png',
-        alt: 'FID comparison for epsilon, x0 and velocity prediction',
+        src: '/images/projects/latent-diffusion/latent_diffusion_train_loss.png',
+        alt: 'Latent diffusion training loss across resumed training sessions',
         caption:
-          'FID measured every 100k training steps. Velocity achieved the best final result, while epsilon remained close to 220.',
-        section: 'results',
-      },
-      {
-        src: '/images/projects/ddpm/ddim-sampling-collage.png',
-        alt: 'Generated CIFAR-10 samples from x0 and velocity prediction models',
-        caption:
-          'Qualitative comparison between samples generated by the x₀ and velocity models.',
-        section: 'results',
-      },
-      {
-        src: '/images/projects/ddpm/float16_divergence.png',
-        alt: 'Training loss spikes caused by float16 mixed precision',
-        caption:
-          'Using float16 introduced instability in the epsilon run; switching to bfloat16 removed the divergence.',
-        section: 'challenges',
-      },
-      {
-        src: '/images/projects/ddpm/ddpm-gif.gif',
-        alt: 'DDPM denoising process from random noise to a generated image',
-        caption:
-          'Denoising progression during sampling.',
-        section: 'lessons',
-        display: 'pixelated',
+          'Training loss over 1200 epochs. Small discontinuities correspond to resumed sessions rather than optimization instability.',
+        section: 'training',
       },
     ],
   },
-    tags: ['PyTorch', 'Latent Diffusion', 'VAE', 'CLIP', 'Cross Attention', 'COCO'],
-    categories: ['generative-ai', 'research'],
-    difficulty: 'research-level',
 
-    featured: true,
+  tags: [
+    'PyTorch',
+    'Latent Diffusion',
+    'Text-to-Image',
+    'VAE',
+    'CLIP',
+    'Cross-Attention',
+    'COCO',
+  ],
 
-    image: '/images/projects/latent-diffusion.webp',
-    imageAlt: 'Latent diffusion text-to-image generated samples from COCO captions',
+  categories: ['generative-ai', 'research'],
+  difficulty: 'research-level',
 
-    githubUrl: '',
-    liveUrl: '#',
+  featured: true,
 
-    publishedAt: '2026-06-13',
-  },
+  image: '/images/projects/latent-diffusion/mosaic.png',
+  imageAlt:
+    'Text-conditioned latent diffusion samples generated from multiple prompts and random seeds',
+
+  githubUrl: 'https://github.com/RickyPyeet/latent-diffusion-pytorch',
+  liveUrl: '#',
+
+  publishedAt: '2026-06-13',
+},
  ];
 
 export const featuredProjects = projects.filter((project) => project.featured);
