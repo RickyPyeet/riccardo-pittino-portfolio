@@ -1,5 +1,7 @@
 import { Link, useParams } from 'react-router-dom';
+import { HiExternalLink } from 'react-icons/hi';
 
+import { Button } from '@/components/ui/Button';
 import { Container } from '@/components/layout/Container';
 import { projects } from '@/data/projects';
 import type { CaseStudyKey, ProjectVisual } from '@/types/project';
@@ -73,6 +75,30 @@ export default function ProjectDetail() {
           <p className="mt-md text-lg text-secondary">
             {project.summary}
           </p>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {project.githubUrl && (
+              <Button
+                href={project.githubUrl}
+                external
+                variant="secondary"
+                ariaLabel={`View ${project.title} source code`}
+              >
+                <HiExternalLink size={16} aria-hidden="true" />
+                View Source
+              </Button>
+            )}
+
+            {project.liveUrl && project.liveUrl !== '#' && (
+              <Button
+                href={project.liveUrl}
+                external
+                variant="primary"
+                ariaLabel={`Open ${project.title} live demo`}
+              >
+                Live Demo
+              </Button>
+            )}
+          </div>
         </header>
 
         <div className="mt-xl grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -228,7 +254,7 @@ function ProjectFigure({ visual }: { visual: ProjectVisual }) {
       />
 
       {visual.caption && (
-        <figcaption className="p-3 text-small text-secondary">
+        <figcaption className="p-3 text-xs italic leading-relaxed text-tertiary">
           {visual.caption}
         </figcaption>
       )}
