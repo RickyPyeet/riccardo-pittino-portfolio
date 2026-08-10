@@ -251,7 +251,7 @@ export const projects: Project[] = [
   imageAlt: 'Class-conditional DDPM generations on CIFAR-10',
 
   githubUrl: 'https://github.com/RickyPyeet/ddpm-pytorch',
-  liveUrl: '#',
+  //liveUrl: '#',
 
   publishedAt: '2026-02-01',
 },
@@ -362,7 +362,7 @@ export const projects: Project[] = [
     'Text-conditioned latent diffusion samples generated from multiple prompts and random seeds',
 
   githubUrl: 'https://github.com/RickyPyeet/latent-diffusion-pytorch',
-  liveUrl: '#',
+  //liveUrl: '#',
 
   publishedAt: '2026-06-13',
 },
