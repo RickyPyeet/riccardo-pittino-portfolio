@@ -58,14 +58,13 @@ export const articles: Article[] = [
     publishedAt: '2026-08-28',
     author: 'Riccardo Pittino',
     tags: ['Diffusion Models', 'PyTorch', 'Generative AI'],
-    image: 'public/images/articles/transformer/attention_the_math_behind_what_matters.png',
+    image: '/images/articles/transformer/attention_the_math_behind_what_matters.png',
     imageAlt: 'Attention article cover showing a similarity matrix with the name of the article',
     featured: true,
     sections: [],
     articleUrl: 'https://medium.com/@ricca.pit/attention-the-math-behind-what-matters-606cdac52ab4',
     isPublished: true
   },
-
 
 ];
 
