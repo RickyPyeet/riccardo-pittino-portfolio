@@ -43,10 +43,26 @@ export const articles: Article[] = [
     author: 'Riccardo Pittino',
     tags: ['Diffusion Models', 'DDPM', 'PyTorch', 'Generative AI'],
     image: '/images/articles/ddpm/residual_block_article_cover.png',
-    imageAlt: 'Unet article cover showing an overview of a unet architecture',
+    imageAlt: 'Residual block article cover showing the residual block architecture',
     featured: true,
     sections: [],
     articleUrl: 'https://medium.com/@ricca.pit/resnets-residual-blocks-for-diffusion-models-e5ac35677563',
+    isPublished: true
+  },
+  {
+    slug: 'attention-the-math-behind-what-matters',
+    title: 'Attention — The Math Behind What Matters',
+    excerpt:
+      'Article on the Attention method, the mathematical reasons behind the algorithm, an introduction to some of its variants, and how to code them in practice.',
+    categories: ['diffusion-models', 'generative-ai'],
+    publishedAt: '2026-08-28',
+    author: 'Riccardo Pittino',
+    tags: ['Diffusion Models', 'PyTorch', 'Generative AI'],
+    image: 'public/images/articles/transformer/attention_the_math_behind_what_matters.png',
+    imageAlt: 'Attention article cover showing a similarity matrix with the name of the article',
+    featured: true,
+    sections: [],
+    articleUrl: 'https://medium.com/@ricca.pit/attention-the-math-behind-what-matters-606cdac52ab4',
     isPublished: true
   },
 
